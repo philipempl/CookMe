@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "791727579661",
+    "firebase_url": "https://androidapplicationtest-63cfa.firebaseio.com",
+    "project_id": "androidapplicationtest-63cfa",
+    "storage_bucket": "androidapplicationtest-63cfa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:791727579661:android:005fc708c7e35498",
+        "android_client_info": {
+          "package_name": "com.example.philip.vibs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "791727579661-l07of87dk8snff6789flt6t7s74s6cs8.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "791727579661-l07of87dk8snff6789flt6t7s74s6cs8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAwsaYFMzuaAeYOicUxi9TINUyBdErz0uA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
