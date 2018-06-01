@@ -20,6 +20,7 @@ public  class DataHolder {
         this.inboxItemList = inboxItemList;
     }
 
+    //test
     public List<Object> getFeedObjectList() {
         return feedObjectList;
     }
