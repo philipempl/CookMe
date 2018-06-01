@@ -29,22 +29,56 @@ Explain how to run the automated tests for this system
 
 ### Docker Command Line
 
-List all images:
-* docker images -a
+Docker is using images and an running image is representing a container.
+
+List all images
+
+* $ docker images -a
+
+List all container
+
+* $ docker ps -a
 
 Remove images
 
-* docker rmi *name*
+* $ docker rmi *name*
 
+Remove container
+
+* $ docker rm *containerID*
+
+Stop container 
+
+** $ docker stop *containerID*
+** $ docker rm $(docker kill $(docker ps -aq))
+
+Run new container
+
+* $ docker run -d -p 8091-8093:8091-8093 -p 11210:11210 *imageNmae*
+
+Start existing container
+
+* $ docker start *containerID*
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+Ensure that Docker is already running.
+Then open command line an insert:
+
+* $ docker start 4bf16c2553b5
+
+After that, the UI is reachable under [LocalHost] (http://localhost:8091/ui/index.html)
+
+If there have been made any changes to the container, please commit these changes under by running the following command:
+
+* $ docker commit 4bf16c2553b5 rhel-http
+
+Run the Android emulator
 
 ## Built With
 
 * [Maven](https://maven.apache.org/) - Dependency Management
-* [Gradle](https://gradle.org/) - Used to build App
+* [Gradle](https://gradle.org/) - Used to build the Application
 
 
 ## Authors
