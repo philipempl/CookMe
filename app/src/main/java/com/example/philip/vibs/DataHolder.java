@@ -1,23 +1,21 @@
 package com.example.philip.vibs;
 
-import com.example.philip.vibs.model.CalendarItem;
-import com.example.philip.vibs.model.InboxItem;
+import com.example.philip.vibs.model.Recipe;
 
 import java.util.List;
 
 public  class DataHolder {
 
-    public static List<InboxItem> inboxItemList;
+    public static List<Recipe> recipeList;
     public static List<Object> feedObjectList;
     public static boolean swipeRight, swipeLeft;
-    public static List<CalendarItem> calendarItemsList;
 
-    public List<InboxItem> getInboxItemList() {
-        return inboxItemList;
+    public List<Recipe> getRecipeList() {
+        return recipeList;
     }
 
-    public void setInboxItemList(List<InboxItem> inboxItemList) {
-        this.inboxItemList = inboxItemList;
+    public void setRecipeList(List<Recipe> recipeList) {
+        this.recipeList = recipeList;
     }
 
     //test
@@ -45,11 +43,4 @@ public  class DataHolder {
         DataHolder.swipeLeft = swipeLeft;
     }
 
-    public static List<CalendarItem> getCalendarItemsList() {
-        return calendarItemsList;
-    }
-
-    public static void setCalendarItemsList(List<CalendarItem> calendarItemsList) {
-        DataHolder.calendarItemsList = calendarItemsList;
-    }
 }

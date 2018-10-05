@@ -9,7 +9,7 @@ Main advantages:
 * Never lose documents anymore
 * Join activities your friends do at the moment and never miss any event
 
-## Getting Started
+## Getting Started (only for running locally)
 
 ### Installing
 
