@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/save_action"
+        android:icon="@drawable/save"
+        app:showAsAction="always"
+        android:title="" />
+
     <item android:id="@+id/export_action"
         android:icon="@drawable/share"
-        android:title="hello"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom"
+        android:title="" />
 </menu>

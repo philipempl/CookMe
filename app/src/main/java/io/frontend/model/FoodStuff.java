@@ -1,8 +1,9 @@
 package io.frontend.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class FoodStuff {
+public class FoodStuff implements Serializable {
 
     UUID id;
     String name;
@@ -14,14 +15,20 @@ public class FoodStuff {
     String unit;
 
     public FoodStuff(String name, String description, Macro macro, double price, String unit, double amount) {
-        this.id = UUID.randomUUID();
+        //this.id = UUID.randomUUID();
         this.name = name;
         this.description = description;
         this.macros = macro;
         this.price = price;
-        this.unit = unit;
+        if(unit == null)
+        {
+            this.unit ="";
+        }
+        else {
+            this.unit = unit;
+        }
         this.amount = amount;
-        this.allergy = Allergy.getAllergy(name);
+        //this.allergy = Allergy.getAllergy(name);
     }
 
     public UUID getId() {

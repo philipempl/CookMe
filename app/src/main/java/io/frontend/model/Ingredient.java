@@ -1,8 +1,10 @@
 package io.frontend.model;
 
-import java.util.UUID;
+import android.widget.TextView;
 
-class Ingredient {
+import java.io.Serializable;
+
+public class Ingredient implements Serializable {
 
     FoodStuff foodStuff;
     double price;
@@ -13,8 +15,8 @@ class Ingredient {
     {
         this.quantity = quantity;
         this.foodStuff = foodStuff;
-        this.macro = Macro.getCalculatedMacro(foodStuff.getMacros(), quantity);
-        this.price = calculatePrice(quantity);
+        //this.macro = Macro.getCalculatedMacro(foodStuff.getMacros(), quantity);
+        //this.price = calculatePrice(quantity);
     }
 
     public void changeQuantity(double factor)

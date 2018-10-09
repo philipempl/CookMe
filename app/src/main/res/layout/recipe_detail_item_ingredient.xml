@@ -1,0 +1,28 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/spacing_medium"
+    android:orientation="horizontal"
+    android:weightSum="9"
+    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="3"
+        android:id="@+id/ingredient_amount"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        style="@style/Text_paragraph"
+        android:text="1 EL"
+        android:layout_marginRight="@dimen/spacing_large"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_weight="6"
+        android:id="@+id/ingredient_name"
+        android:layout_height="wrap_content"
+        android:text="Salz"
+        style="@style/Text_paragraph"/>
+</LinearLayout>

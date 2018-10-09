@@ -6,9 +6,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -26,17 +29,18 @@ import com.rd.PageIndicatorView;
 import java.util.Objects;
 
 import io.frontend.model.Recipe;
+import io.frontend.recyclerview.adapter.IngredientRecyclerAdapter;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 public class RecipeDetailActivity extends AppCompatActivity {
 
     Recipe recipe;
     CustomPagerAdapter mCustomPagerAdapter;
-    net.opacapp.multilinecollapsingtoolbar.CollapsingToolbarLayout collapsingToolbarLayout;
+   CollapsingToolbarLayout collapsingToolbarLayout;
+   IngredientRecyclerAdapter ingredientRecyclerAdapter;
     PageIndicatorView pageIndicatorView;
     Toolbar toolbar;
     ViewPager viewPager;
-    boolean firstPage;
     TextView description;
     ImageView ivCharacter, ivPricing, ivNutrions;
 
@@ -45,10 +49,11 @@ public class RecipeDetailActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recipe_details_item);
+        setContentView(R.layout.recipe_item_detail_view);
 
         description = findViewById(R.id.recipe_detail_description);
         recipe = (Recipe) Objects.requireNonNull(getIntent().getExtras()).getSerializable("RECIPE");
+        description.setText(recipe.getDescription());
 
         MaterialRatingBar mrb =  findViewById(R.id.rb_recipe_item_detail);
         mrb.setNumStars(5);
@@ -56,6 +61,15 @@ public class RecipeDetailActivity extends AppCompatActivity {
         setupToolBar();
         setupViewPager();
         setupImageViews();
+        setupIngredients();
+    }
+
+    private void setupIngredients() {
+        RecyclerView rv_ingredients = findViewById(R.id.rv_recipe_detail_item_ingredients);
+        ingredientRecyclerAdapter = new IngredientRecyclerAdapter(recipe.getListIngredients());
+        rv_ingredients.setAdapter(ingredientRecyclerAdapter);
+        rv_ingredients.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
     }
 
     private void setupImageViews() {
@@ -137,47 +151,20 @@ public class RecipeDetailActivity extends AppCompatActivity {
         pageIndicatorView = findViewById(R.id.pageIndicatorView);
         pageIndicatorView.setCount(recipe.getListImages().size()); // specify total count of indicators
         pageIndicatorView.setSelection(1);
-        firstPage = true;
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int position) {
-                pageIndicatorView.setSelection(position);
-                if(position > 0)
-                {
-                    collapsingToolbarLayout.setTitle("");
-                    toolbar.setTitle("");
-                    toolbar.setSubtitle("");
-                    firstPage = false;
-                }
-                else if (position == 0)
-                {
-                    collapsingToolbarLayout.setTitle(recipe.getTitle());
-                    firstPage = true;
-
-                }
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {/*empty*/}
-        });
-
     }
 
     private void setupToolBar() {
-        toolbar = findViewById(R.id.toolbar);
-        collapsingToolbarLayout = findViewById(R.id.collapsing_toolbar);
+        toolbar = findViewById(R.id.recipe_detail_view_toolbar);
+        collapsingToolbarLayout = findViewById(R.id.recipe_detail_view_collapsing_toolbar);
         toolbar.setTitle(recipe.getTitle());
+        toolbar.getBackground().setAlpha(180);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        AppBarLayout appBarLayout = findViewById(R.id.app_bar_layout);
+
+        AppBarLayout appBarLayout = (AppBarLayout) findViewById(R.id.recipe_detail_view_app_bar_layout);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            boolean isShow = false;
+            boolean isShow = true;
             int scrollRange = -1;
 
             @Override
@@ -186,15 +173,16 @@ public class RecipeDetailActivity extends AppCompatActivity {
                     scrollRange = appBarLayout.getTotalScrollRange();
                 }
                 if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbarLayout.setTitle("");
-                    isShow = true;
-                } else if (isShow && firstPage) {
                     collapsingToolbarLayout.setTitle(recipe.getTitle());
+                    toolbar.setTitle(recipe.getTitle());
+                    isShow = true;
+                } else if(isShow) {
+                    collapsingToolbarLayout.setTitle(" ");//carefull there should a space between double quote otherwise it wont work
+                    toolbar.setTitle(" ");
                     isShow = false;
                 }
             }
         });
-
     }
 
 
