@@ -14,10 +14,13 @@ import android.view.ViewGroup;
 import com.example.philip.vibs.R;
 
 import java.io.Serializable;
+import java.util.List;
 
 import io.frontend.activity.RecipeDetailActivity;
 import io.frontend.dataholder.DataHolder;
+import io.frontend.model.Recipe;
 import io.frontend.recyclerview.adapter.ComplexItemAdapter;
+import io.frontend.recyclerview.adapter.RecipeRecyclerAdapter;
 import io.frontend.recyclerview.onClickListener.RecyclerFeedItemClickListener;
 import jp.wasabeef.blurry.Blurry;
 
@@ -25,9 +28,11 @@ public class RecipeFragment extends android.support.v4.app.Fragment {
 
     public static boolean blurry = false;
 
-    private RecyclerView recyclerViewHorizontal;
-    private ComplexItemAdapter mAdapterComplexItems;
+    private RecyclerView rvRecommendedRecipes, rvPopularRecipes, rvNewRecipes;
+    private RecipeRecyclerAdapter recipeRecyclerAdapter;
     public  View view;
+    LinearLayoutManager llmRecipesRecommended, llmRecipesPopular, llmRecipesNew;
+
     public RecipeFragment() {
         // Required empty public constructor
     }
@@ -41,18 +46,38 @@ public class RecipeFragment extends android.support.v4.app.Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
 
-
         configureRecipeView(inflater, container);
-        recyclerViewHorizontal.addOnItemTouchListener(
-                new RecyclerFeedItemClickListener(getContext(), recyclerViewHorizontal, new RecyclerFeedItemClickListener.OnItemClickListener() {
+
+        return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+    private void configureRecipeView(LayoutInflater inflater, ViewGroup container) {
+        view = inflater.inflate(R.layout.fragment_home, container, false);
+        llmRecipesRecommended =  new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        configureRecipeRecyclerRecommended();
+        configureRecipeRecyclerPopular();
+        configureRecipeRecyclerNew();
+    }
+
+    private void configureRecipeRecyclerRecommended() {
+        llmRecipesRecommended =  new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rvRecommendedRecipes = view.findViewById(R.id.rv_recommended_recipes);
+        recipeRecyclerAdapter = new RecipeRecyclerAdapter(DataHolder.getRecipeListRecommended());
+        rvRecommendedRecipes.setAdapter(recipeRecyclerAdapter);
+        rvRecommendedRecipes.setLayoutManager(llmRecipesRecommended);
+        rvRecommendedRecipes.addOnItemTouchListener(
+                new RecyclerFeedItemClickListener(getContext(), rvRecommendedRecipes, new RecyclerFeedItemClickListener.OnItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {
-                       Intent i = new Intent(getContext(), RecipeDetailActivity.class);
-                       Bundle bundle = new Bundle();
-                       bundle.putSerializable("RECIPE", (Serializable) DataHolder.feedObjectList.get(position));
+                        Intent i = new Intent(getContext(), RecipeDetailActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("RECIPE", (Serializable) DataHolder.recipeListRecommended.get(position));
                         i.putExtras(bundle);
                         startActivity(i);
-
                     }
 
                     @Override
@@ -60,42 +85,51 @@ public class RecipeFragment extends android.support.v4.app.Fragment {
                     }
                 })
         );
-        return view;
     }
+    private void configureRecipeRecyclerPopular() {
+        llmRecipesPopular =  new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rvPopularRecipes = view.findViewById(R.id.rv_popular_recipes);
+        recipeRecyclerAdapter = new RecipeRecyclerAdapter(DataHolder.getRecipeListPopular());
+        rvPopularRecipes.setAdapter(recipeRecyclerAdapter);
+        rvPopularRecipes.setLayoutManager(llmRecipesPopular);
+        rvPopularRecipes.addOnItemTouchListener(
+                new RecyclerFeedItemClickListener(getContext(), rvPopularRecipes, new RecyclerFeedItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Intent i = new Intent(getContext(), RecipeDetailActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("RECIPE", (Serializable) DataHolder.recipeListPopular.get(position));
+                        i.putExtras(bundle);
+                        startActivity(i);
+                    }
 
-
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-    if(blurry)
-    {
-        Blurry.delete((ViewGroup) view);
-        blurry = false;
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+                    }
+                })
+        );
     }
-    }
-    private void configureRecipeView(LayoutInflater inflater, ViewGroup container) {
-        // Inflate the layout for this io.frontend.fragment
-        view = inflater.inflate(R.layout.fragment_home, container, false);
-        //section for recycler view on the bottom
+    private void configureRecipeRecyclerNew() {
+        llmRecipesNew =  new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rvNewRecipes = view.findViewById(R.id.rv_new_recipes);
+        recipeRecyclerAdapter = new RecipeRecyclerAdapter(DataHolder.getRecipeListRecommended());
+        rvNewRecipes.setAdapter(recipeRecyclerAdapter);
+        rvNewRecipes.setLayoutManager(llmRecipesNew);
+        rvNewRecipes.addOnItemTouchListener(
+                new RecyclerFeedItemClickListener(getContext(), rvNewRecipes, new RecyclerFeedItemClickListener.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Intent i = new Intent(getContext(), RecipeDetailActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("RECIPE", (Serializable) DataHolder.recipeListNew.get(position));
+                        i.putExtras(bundle);
+                        startActivity(i);
+                    }
 
-        recyclerViewHorizontal = view.findViewById(R.id.recycler_view_inbox);
-        LinearLayoutManager mLayoutManagerInbox = new LinearLayoutManager(getActivity());
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerViewHorizontal.getContext(),
-                mLayoutManagerInbox.getOrientation());
-        recyclerViewHorizontal.addItemDecoration(dividerItemDecoration);
-        recyclerViewHorizontal.setLayoutManager(mLayoutManagerInbox);
-        recyclerViewHorizontal.setAdapter(mAdapterComplexItems);
-        recyclerViewHorizontal.setNestedScrollingEnabled(false);
-        RecyclerView.ItemAnimator itemAnimator = new DefaultItemAnimator();
-        recyclerViewHorizontal.setItemAnimator(itemAnimator);
-
-        recyclerViewHorizontal = view.findViewById(R.id.recycler_view_feed);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        recyclerViewHorizontal.setLayoutManager(layoutManager);
-        mAdapterComplexItems = new ComplexItemAdapter();
-        recyclerViewHorizontal.setAdapter(mAdapterComplexItems);
-        recyclerViewHorizontal.setItemAnimator(itemAnimator);
+                    @Override
+                    public void onLongItemClick(View view, int position) {
+                    }
+                })
+        );
     }
 }

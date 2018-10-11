@@ -1,38 +1,78 @@
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="activity.StartActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="io.frontend.activity.StartActivity"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:background="#78909C"
+    android:background="@color/colorPrimary"
     android:layout_height="match_parent">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view_feed"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.4"
-            android:clipToPadding="false"
-            android:scrollbars="none"
-            android:layout_marginTop="15dp"
-            android:nestedScrollingEnabled="false"/>
+            android:layout_height="wrap_content"
+            android:text="Empfohlen für dich"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginBottom="@dimen/spacing_large"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            style="@style/Text_headline"/>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view_inbox"
+            android:id="@+id/rv_recommended_recipes"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_weight="0.5"
+            android:clipToPadding="false"
+            android:scrollbars="none"
+            android:nestedScrollingEnabled="false"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Beliebte Rezepte"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginBottom="@dimen/spacing_large"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            style="@style/Text_headline"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_popular_recipes"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:clipToPadding="false"
             android:scrollbars="none"
-            android:layout_weight="0.6"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_weight="0.5"
+            android:nestedScrollingEnabled="false"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Neue Rezepte"
+            android:layout_marginTop="@dimen/spacing_large"
+            android:layout_marginBottom="@dimen/spacing_large"
+            android:layout_marginLeft="@dimen/spacing_medium"
+            style="@style/Text_headline"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_new_recipes"
+            android:layout_width="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:scrollbars="none"
+            android:layout_weight="0.5"
             android:layout_marginBottom="?actionBarSize"
-            android:layout_marginTop="15dp"
             android:nestedScrollingEnabled="false"/>
-
     </LinearLayout>
-
+    </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

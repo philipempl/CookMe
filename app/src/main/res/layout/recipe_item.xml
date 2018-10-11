@@ -2,34 +2,44 @@
     xmlns="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/tools"
     android:id="@+id/card_view_row"
-    android:layout_gravity="center"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_marginBottom="4dp"
     android:layout_height="wrap_content"
     android:layout_marginRight="5dp"
     android:layout_marginLeft="5dp"
     android:padding="5dp"
-    card_view:cardCornerRadius="10dp">
+    card_view:cardCornerRadius="20dp">
 
 
-        <LinearLayout android:layout_width="match_parent"
+        <LinearLayout android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-            android:gravity="center"
         android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/recipe_item_image"
+                android:layout_width="180dp"
+                android:layout_height="150dp"
+                android:background="@drawable/titelbild"/>
+
             <TextView
                 android:id="@+id/recipe_item_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="7dp"
-                android:textSize="14sp"
-                android:text="Lasagne" />
+                android:text="Geile Lasagne"
+                android:layout_marginTop="@dimen/spacing_medium"
+                android:layout_marginLeft="@dimen/spacing_medium"
+                style="@style/Text_listview"/>
 
-            <TextView
-                android:id="@+id/recipe_item_description"
+            <me.zhanghai.android.materialratingbar.MaterialRatingBar
+                android:id="@+id/rb_recipe_item"
+                style="@style/Widget.MaterialRatingBar.RatingBar.Indicator.Small"
                 android:layout_width="wrap_content"
+                android:theme="@style/RatingBar"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
-                android:text="So und so und so" />
+                android:backgroundTint="@color/colorStars"
+                android:layout_marginLeft="@dimen/spacing_medium"
+                android:layout_marginTop="@dimen/spacing_small"
+                android:layout_marginBottom="@dimen/spacing_medium" />
 
     </LinearLayout>
 

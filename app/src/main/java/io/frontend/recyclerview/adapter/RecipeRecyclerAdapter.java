@@ -13,6 +13,7 @@ import java.util.List;
 
 import io.frontend.dataholder.DataHolder;
 import io.frontend.model.Recipe;
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 
 public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAdapter.MyViewHolder> {
@@ -20,19 +21,19 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAd
     private List<Recipe> recipeList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public ImageView food;
-        public TextView title, description;
+        public TextView title;
+        public MaterialRatingBar mrb;
 
         public MyViewHolder(View view) {
             super(view);
-            title = (TextView) view.findViewById(R.id.recipe_item_title);
-            description = (TextView) view.findViewById(R.id.recipe_item_description);
+            title =  view.findViewById(R.id.recipe_item_title);
+            mrb =  view.findViewById(R.id.rb_recipe_item);
         }
     }
 
 
-    public RecipeRecyclerAdapter() {
-        this.recipeList = DataHolder.recipeList;
+    public RecipeRecyclerAdapter(List<Recipe> recipeList) {
+        this.recipeList = recipeList;
     }
 
     @Override
@@ -47,7 +48,7 @@ public class RecipeRecyclerAdapter extends RecyclerView.Adapter<RecipeRecyclerAd
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Recipe recipe = recipeList.get(position);
         holder.title.setText(recipe.getTitle());
-        holder.description.setText(recipe.getDescription());
+        holder.mrb.setProgress(9);
 
     }
 

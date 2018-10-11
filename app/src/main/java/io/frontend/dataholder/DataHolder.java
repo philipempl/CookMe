@@ -6,41 +6,34 @@ import io.frontend.model.Recipe;
 
 public  class DataHolder {
 
-    public static List<Recipe> recipeList;
     public static List<Object> feedObjectList;
-    private static boolean swipeRight, swipeLeft;
+    public static List<Recipe> recipeListRecommended;
+    public static List<Recipe> recipeListPopular;
 
-    public List<Recipe> getRecipeList() {
-        return recipeList;
+    public static List<Recipe> getRecipeListNew() {
+        return recipeListNew;
     }
 
-    public void setRecipeList(List<Recipe> recipeList) {
-        this.recipeList = recipeList;
+    public static void setRecipeListNew(List<Recipe> recipeListNew) {
+        DataHolder.recipeListNew = recipeListNew;
     }
 
-    //test
-    public List<Object> getFeedObjectList() {
-        return feedObjectList;
+    public static List<Recipe> recipeListNew;
+
+
+    public static List<Recipe> getRecipeListRecommended() {
+        return recipeListRecommended;
     }
 
-    public void setFeedObjectList(List<Object> feedObjectList) {
-        this.feedObjectList = feedObjectList;
+    public static void setRecipeListRecommended(List<Recipe> recipeListRecommended) {
+        DataHolder.recipeListRecommended = recipeListRecommended;
     }
 
-    public static boolean isSwipeRight() {
-        return swipeRight;
+    public static List<Recipe> getRecipeListPopular() {
+        return recipeListPopular;
     }
 
-    public static void setSwipeRight(boolean swipeRight) {
-        DataHolder.swipeRight = swipeRight;
+    public static void setRecipeListPopular(List<Recipe> recipeListPopular) {
+        DataHolder.recipeListPopular = recipeListPopular;
     }
-
-    public static boolean isSwipeLeft() {
-        return swipeLeft;
-    }
-
-    public static void setSwipeLeft(boolean swipeLeft) {
-        DataHolder.swipeLeft = swipeLeft;
-    }
-
 }

@@ -13,17 +13,19 @@ import java.util.List;
 
 import io.frontend.dataholder.DataHolder;
 import io.frontend.model.Recipe;
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 public class ComplexItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     public class RecipeItemViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, description;
+        public TextView title;
+        MaterialRatingBar mrb;
 
 
         private RecipeItemViewHolder(View view) {
             super(view);
             title = view.findViewById(R.id.recipe_item_title);
-            description = view.findViewById(R.id.recipe_item_description);
+            mrb = view.findViewById(R.id.rb_recipe_item);
         }
 
     }
@@ -91,7 +93,7 @@ public class ComplexItemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         Recipe recipe = (Recipe) items.get(position);
         if (recipe != null) {
             rivh.title.setText(recipe.getTitle());
-            rivh.description.setText(recipe.getDescription());
+            rivh.mrb.setProgress(9);
         }
     }
 }

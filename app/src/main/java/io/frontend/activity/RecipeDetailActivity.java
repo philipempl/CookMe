@@ -157,7 +157,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.recipe_detail_view_toolbar);
         collapsingToolbarLayout = findViewById(R.id.recipe_detail_view_collapsing_toolbar);
         toolbar.setTitle(recipe.getTitle());
-        toolbar.getBackground().setAlpha(180);
+        toolbar.getBackground().setAlpha(0);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -175,10 +175,12 @@ public class RecipeDetailActivity extends AppCompatActivity {
                 if (scrollRange + verticalOffset == 0) {
                     collapsingToolbarLayout.setTitle(recipe.getTitle());
                     toolbar.setTitle(recipe.getTitle());
+                    toolbar.getBackground().setAlpha(255);
                     isShow = true;
                 } else if(isShow) {
                     collapsingToolbarLayout.setTitle(" ");//carefull there should a space between double quote otherwise it wont work
                     toolbar.setTitle(" ");
+                    toolbar.getBackground().setAlpha(0);
                     isShow = false;
                 }
             }

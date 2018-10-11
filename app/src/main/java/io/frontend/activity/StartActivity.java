@@ -6,6 +6,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.philip.vibs.R;
@@ -31,6 +32,7 @@ public class StartActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         Fragment fragment = new RecipeFragment();
         loadFragment(fragment);
+        setSupportActionBar((Toolbar) findViewById(R.id.tb_main_activity));
         //actionToolbar = getSupportActionBar();
         //actionToolbar.setTitle("Inbox");
 
@@ -47,16 +49,16 @@ public class StartActivity extends AppCompatActivity {
                     fragment = new RecipeFragment();
                     loadFragment(fragment);
                     return true;
-                case R.id.navigation_home:
+                case R.id.navigation_search:
                     fragment = new RecipeFragment();
                     loadFragment(fragment);
 
                     return true;
-                case R.id.navigation_search:
+                case R.id.navigation_favorites:
                     fragment = new RecipeFragment();
                     loadFragment(fragment);
                     return true;
-                case R.id.navigation_account:
+                case R.id.navigation_profile:
                     fragment = new RecipeFragment();
                     loadFragment(fragment);
                     return true;
@@ -74,18 +76,22 @@ public class StartActivity extends AppCompatActivity {
     }
     private void createProtoListFeed() {
 
-        DataHolder.feedObjectList = new ArrayList<>();
-        DataHolder.feedObjectList.clear();
+        DataHolder.recipeListRecommended = new ArrayList<>();
+        DataHolder.recipeListPopular = new ArrayList<>();
+        DataHolder.recipeListNew = new ArrayList<>();
+        DataHolder.recipeListRecommended.clear();
         //TODO
         //Add elements
         List<Integer> resImages = getImages();
         List<Ingredient> ingredientList = getIngredients();
 
-        DataHolder.feedObjectList.add(new Recipe("Spaghetti aglio e olio", getDescription(), resImages, 4, ingredientList, 150, "Challenging", null));
-        DataHolder.feedObjectList.add(new Recipe("Lasagne", "Geile Lasagne", resImages, 4, null, 150, "Challenging", null));
-        DataHolder.feedObjectList.add(new Recipe("Lasagne", "Geile Lasagne", resImages, 4, null, 150, "Challenging", null));
-        DataHolder.feedObjectList.add(new Recipe("Lasagne", "Geile Lasagne", resImages, 4, null, 150, "Challenging", null));
+        DataHolder.recipeListRecommended.add(new Recipe("Spaghetti aglio e olio", getDescription(), resImages, 4, ingredientList, 150, "Challenging", null));
+        DataHolder.recipeListRecommended.add(new Recipe("Lasagne", "Geile Lasagne", resImages, 4, ingredientList, 150, "Challenging", null));
+        DataHolder.recipeListRecommended.add(new Recipe("Lasagne", "Geile Lasagne", resImages, 4, ingredientList, 150, "Challenging", null));
+        DataHolder.recipeListRecommended.add(new Recipe("Lasagne", "Geile Lasagne", resImages, 4, ingredientList, 150, "Challenging", null));
 
+        DataHolder.recipeListPopular.addAll(DataHolder.getRecipeListRecommended());
+        DataHolder.recipeListNew.addAll(DataHolder.getRecipeListRecommended());
     }
 
 
@@ -103,12 +109,12 @@ public class StartActivity extends AppCompatActivity {
         List<Ingredient> ingredientList = new ArrayList<>();
         FoodStuff fs1 = new FoodStuff("Spaghetti", null, null, 0, "g", 0);
         FoodStuff fs2 = new FoodStuff("Knoblauchzehe(n)", null, null, 0, null, 0);
-        FoodStuff fs3 =new FoodStuff("Petersilie, glatte", null, null, 0, "Bund", 0);
-        FoodStuff fs4 =new FoodStuff("Chilischote(n), getrocknet", null, null, 0, null, 0);
-        FoodStuff fs5 =new FoodStuff("Olivenöl", null, null, 0, null, 0);
-        FoodStuff fs6 =new FoodStuff("Meersalz", null, null, 0, "TL", 0);
-        FoodStuff fs7 =new FoodStuff("Pfeffer", null, null, 0, "TL", 0);
-        FoodStuff fs8 =new FoodStuff("Zitrone(n), unbehandelt", null, null, 0, null, 0);
+        FoodStuff fs3 = new FoodStuff("Petersilie, glatte", null, null, 0, "Bund", 0);
+        FoodStuff fs4 = new FoodStuff("Chilischote(n), getrocknet", null, null, 0, null, 0);
+        FoodStuff fs5 = new FoodStuff("Olivenöl", null, null, 0, null, 0);
+        FoodStuff fs6 = new FoodStuff("Meersalz", null, null, 0, "TL", 0);
+        FoodStuff fs7 = new FoodStuff("Pfeffer", null, null, 0, "TL", 0);
+        FoodStuff fs8 = new FoodStuff("Zitrone(n), unbehandelt", null, null, 0, null, 0);
 
         ingredientList.add(new Ingredient(fs1, 300));
         ingredientList.add(new Ingredient(fs2, 4));
