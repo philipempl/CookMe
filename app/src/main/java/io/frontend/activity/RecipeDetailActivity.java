@@ -7,8 +7,10 @@ import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -43,6 +45,8 @@ public class RecipeDetailActivity extends AppCompatActivity {
     ViewPager viewPager;
     TextView description;
     ImageView ivCharacter, ivPricing, ivNutrions;
+    Snackbar sb_cook;
+    NestedScrollView nsc_recipe;
 
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -62,7 +66,34 @@ public class RecipeDetailActivity extends AppCompatActivity {
         setupViewPager();
         setupImageViews();
         setupIngredients();
+        setupSnackBar();
     }
+
+    private void setupSnackBar() {
+        sb_cook = Snackbar.make(findViewById(android.R.id.content), "should disappear when scrolling!", Snackbar.LENGTH_LONG);
+         nsc_recipe= findViewById(R.id.nsc_recipe);
+
+        final Snackbar snackbar = Snackbar
+                .make(findViewById(R.id.cl_recipe_detail_item), recipe.getTitle(), Snackbar.LENGTH_INDEFINITE)
+                .setAction("Jetzt kochen!", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                    }
+                });
+        nsc_recipe.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+
+                if (scrollY > oldScrollY) {
+                    snackbar.show();
+                }
+                if(scrollY < oldScrollY)
+                {
+                    snackbar.dismiss();
+                }
+            }
+        });
+}
 
     private void setupIngredients() {
         RecyclerView rv_ingredients = findViewById(R.id.rv_recipe_detail_item_ingredients);

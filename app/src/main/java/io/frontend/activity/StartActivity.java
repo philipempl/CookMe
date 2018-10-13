@@ -32,7 +32,6 @@ public class StartActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         Fragment fragment = new RecipeFragment();
         loadFragment(fragment);
-        setSupportActionBar((Toolbar) findViewById(R.id.tb_main_activity));
         //actionToolbar = getSupportActionBar();
         //actionToolbar.setTitle("Inbox");
 
